@@ -43,7 +43,7 @@ using Plots
 
 # We can easily plot this using the Plots.jl package
 plot(θ, title="Example filter")
-savefig(joinpath("/home/ptiede/MySite/ptiede.github.io/MySite2/__site/assets/menu3/code", "img.svg")) # hide
+savefig(joinpath("/home/ptiede/MySite/ptiede.github.io/MySite2/__site/assets/software/code", "img.svg")) # hide
 
 # Let's now make a sample image with some random noise
 img = VIDA.make_ehtimage(θ, 64, [-60.0,60.0],[-60.0,60.0])
@@ -51,7 +51,7 @@ img.img .*=  exp.(randn(64,64)*0.2)
 
 # Plotting the image gives
 plot(img, title="Example filter with noise")
-savefig(joinpath("/home/ptiede/MySite/ptiede.github.io/MySite2/__site/assets/menu3/code", "img2.svg")) # hide
+savefig(joinpath("/home/ptiede/MySite/ptiede.github.io/MySite2/__site/assets/software/code", "img2.svg")) # hide
 
 # Now let's try to extract the ring parameters
 # First constuct the divergence from the img
@@ -73,7 +73,7 @@ a = triptic(img, θopt)
 title!(a[1], "Image")
 title!(a[2], "Optimal Filter")
 title!(a[3], "Chords")
-savefig(joinpath("/home/ptiede/MySite/ptiede.github.io/MySite2/__site/assets/menu3/code", "triptic.svg")) # hide
+savefig(joinpath("/home/ptiede/MySite/ptiede.github.io/MySite2/__site/assets/software/code", "triptic.svg")) # hide
 ```
 \fig{img}
 \fig{img2}
