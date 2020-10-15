@@ -1,0 +1,23 @@
+Downloading artifact: CompilerSupportLibraries
+[?25l[1A[2K[?25hDownloading artifact: OpenSpecFun
+[?25l[1A[2K[?25hDownloading artifact: Rmath
+[?25l[1A[2K[?25hDownloading artifact: LibSSH2
+[?25l[1A[2K[?25hDownloading artifact: Zlib
+[?25l[1A[2K[?25hDownloading artifact: nghttp2
+[?25l[1A[2K[?25hDownloading artifact: LibCURL
+[?25l[1A[2K[?25hDownloading artifact: CFITSIO
+[?25l[1A[2K[?25hDownloading artifact: EarCut
+[?25l[1A[2K[?25hDownloading artifact: Bzip2
+[?25l[1A[2K[?25hDownloading artifact: FreeType2
+[?25l[1A[2K[?25hDownloading artifact: FriBidi
+[?25l[1A[2K[?25hDownloading artifact: Ogg
+[?25l[1A[2K[?25hDownloading artifact: libass
+[?25l[1A[2K[?25hDownloading artifact: libfdk_aac
+[?25l[1A[2K[?25hDownloading artifact: LAME
+[?25l[1A[2K[?25hDownloading artifact: libvorbis
+[?25l[1A[2K[?25hDownloading artifact: x264
+[?25l[1A[2K[?25hDownloading artifact: x265
+[?25l[1A[2K[?25hDownloading artifact: OpenSSL
+[?25l[1A[2K[?25hDownloading artifact: Opus
+[?25l[1A[2K[?25hDownloading artifact: FFMPEG
+[?25l[1A[2K[?25hSystemError: opening file "/home/ptiede/MySite/ptiede.github.io/MySite2/__site/assets/menu3/code/img.svg": No such file or directory
