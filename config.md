@@ -9,6 +9,11 @@ The website_* must be defined for the RSS to work
 
 @def author = "Paul Tiede"
 
+# defaults for layout variables
+cover = false
+content_tag = ""
+
+
 @def mintoclevel = 2
 
 <!--

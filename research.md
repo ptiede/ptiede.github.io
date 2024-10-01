@@ -1,107 +1,48 @@
 @def title = "Research"
 @def hascode = true
-@def date = Date(2019, 3, 22)
-@def rss = "A short description of the page which would serve as **blurb** in a `RSS` feed; you can use basic markdown here but the whole description string must be a single line (not a multiline string). Like this one for instance. Keep in mind that styling is minimal in RSS so for instance don't expect maths or fancy styling to work; images should be ok though: ![](https://upload.wikimedia.org/wikipedia/en/3/32/Rick_and_Morty_opening_credits.jpeg)"
+@def date = Date(2024, 10, 1)
+@def rss = "My Research Interests"
 
 # Research
 
-
-\toc
-
-## Sampling distributions
-In science, to make a discovery you need to know your error. Error is the god to which we all need to pray. One of the best ways to assign error to measurements is using Bayesian inference. Bayesian inference assumes that you can never truly know anything, instead you can consolidate evidence (i.e. data) to may decisions and inference about parameters or models that generate the data. To do this first lets define our model $M$ with parameters $\theta$. Furthermore, we will assume that our data $y$ is generated from some noisy process. The trick with Bayesian inference is that we assume that the parameters $\theta$
-
-While HMC is can explore the local posterior extemely efficiently, it can stuggle when the distribution is multimodal. To create a truly global sampler, I have also implemented a non-reversible parallel tempering algorithm in Themis. Parallel tempering  replaces the standard poster $\pi(x)$ with a series of modified auxillary distributions described by
-$$
-    \pi^{\beta}(x) = \left(\frac{\pi(x)}{\pi_0(x)}\right)^\beta\pi_0(x),
-$$
-where $\pi_0(x)$ is some easy to sample reference distribution[^1].
-
-[^1]: If you are a Bayesian you might think this is the prior. However, it doesn't have to be! In fact, it can be any distribution you please. Parallel tempering is really a way to flow from one distribution $\pi_0$ to $\pi$ and back. What you would really like is for $\pi_0$ to be easy to sample from but as close to $\pi$ as possible. 
+As a computational astrostatistician working on applying HPC and modern statistics to learn about the nature of compact astrophysical objects. My research aims to robustly solve inverse problems
+that arise in every field of astronomy, while focussing on computational cost to ensure scalability to next generation instruments. Additionally, I am an avid Julia programmer, thanks to its
+simple syntax and dynamic programming, while maintaining performance similar to C and Fortran. I have worked on several open source projects that are used in astronomy and organized a 
+[Computation Radio Astronomy minisymposium at JuliaCon 2023](https://live.juliacon.org/talk/PUY3SP).
 
 
-# Spacetime Tomography
+I am a member of several astronomy organizations including the [Event Horizon Telescope](https://eventhorizontelescope.org/) (EHT), [next-generation Event Horizon telescope](https://www.ngeht.org/) (ngEHT)
+and potential space extensions like the [Black Hole Explorer](https://www.blackholeexplorer.org/) (BHEX) project. 
 
 
-# Imaging Black Holes
+## Imaging Black Holes
 
-<!--
-@def tags = ["syntax", "code"]
+Imaging black holes requires the use of *very long baseline interferometry* (VLBI) to correlate signals from several radio telescopes around the world
+creating the highest possible resolution instruments. However, to create images from the data is a complex forward modeling problems that requires 
+only modeling the non-linear instrument response for each telescope, the earth atmosphere, and the source itself. I have worked on and lead several projects
+to improve the imaging of black holes.
 
-# Working with code blocks
-
-\toc
-
-## Live evaluation of code blocks
-
-If you would like to show code as well as what the code outputs, you only need to specify where the script corresponding to the code block will be saved.
-
-Indeed, what happens is that the code block gets saved as a script which then gets executed.
-This also allows for that block to not be re-executed every time you change something _else_ on the page.
-
-Here's a simple example (change values in `a` to see the results being live updated):
-
-```julia:./exdot.jl
-using LinearAlgebra
-a = [1, 2, 3, 3, 4, 5, 2, 2]
-@show dot(a, a)
-println(dot(a, a))
-```
-
-You can now show what this would look like:
-
-\output{./exdot.jl}
-
-**Notes**:
-* you don't have to specify the `.jl` (see below),
-* you do need to explicitly use print statements or `@show` for things to show, so just leaving a variable at the end like you would in the REPL will show nothing,
-* only Julia code blocks are supported at the moment, there may be a support for scripting languages like `R` or `python` in the future,
-* the way you specify the path is important; see [the docs](https://tlienart.github.io/franklindocs/code/index.html#more_on_paths) for more info. If you don't care about how things are structured in your `/assets/` folder, just use `./scriptname.jl`. If you want things to be grouped, use `./group/scriptname.jl`. For more involved uses, see the docs.
-
-Lastly, it's important to realise that if you don't change the content of the code, then that code will only be executed _once_ even if you make multiple changes to the text around it.
-
-Here's another example,
-
-```julia:./code/ex2
-for i ∈ 1:5, j ∈ 1:5
-    print(" ", rpad("*"^i,5), lpad("*"^(6-i),5), j==5 ? "\n" : " "^4)
-end
-```
-
-which gives the (utterly useless):
-
-\output{./code/ex2}
-
-note the absence of `.jl`, it's inferred.
-
-You can also hide lines (that will be executed nonetheless):
-
-```julia:./code/ex3
-using Random
-Random.seed!(1) # hide
-@show randn(2)
-```
-
-\output{./code/ex3}
+Traditional VLBI imaging techniques include CLEAN deconvolution and Regularized Maximum likelihood methods do not give reliable error estimates
+and have lead to various debates in the community about the relability of features in images. My focus is utilizing Bayesian inference techniques to solve the 
+VLBI imaging problem in an automated fashion, while giving reliable error estimates. While Bayesian inference tends to be more computational expensive, I have
+developed techniques and sofware packages to make the process more efficient. These techniques live in the open source Julia software package [Comrade](https://github.com/ptiede/Comrade.jl)
+of which I am the primary developer and maintainer. Comrade improved the performance of the EHT imaging pipeline by 1-2 orders of magnitude and is has been used in various 
+EHT publications including the first images of Sgr A*, the 2018 M87 image, the ongoing M87 2021 analysis of which I am the one of the project coordinators. 
 
 
-## Including scripts
+## Bayesian Statistics
 
-Another approach is to include the content of a script that has already been executed.
-This can be an alternative to the description above if you'd like to only run the code once because it's particularly slow or because it's not Julia code.
-For this you can use the `\input` command specifying which language it should be tagged as:
+To ensure reliable and robust scientific results, I am a strong proponent of Bayesian statistics. However, one of the main challenges in using Bayesian statistics is the computational cost
+and the relability of approximations. I have worked with statisticians and computer scientists to develop new algorithms that enable more robust posterior approximations, including 
+the open source [Pigeons.jl](https://github.com/Julia-Tempering/Pigeons.jl) package, which utilizes a non-reversible parallel tempering scheme, in conjunction with MPI to enable 
+scalable Bayesian inference for pathological posteriors.
+
+I am also working with statisticians at Oxford ([Saiduddin Syed](https://www.saifsyed.com/)) to use novel Bayesian inference and machine learning techniques to improve data analysis for 
+a variety of astronomical projects and inverse problems.
+
+## High Performance Computing
+
+I work with high performance computing specialist to interface my projects with modern compiler technology and HPC systems. I have worked with the [Enzyme LLVM auto-differentiation library](https://github.com/EnzymeAD)
+enabling massive speed improvements relative to previous methods giving a talk at the inaugural [EnzymeCon 202](https://enzyme.mit.edu/talks/EnzymeCon/).
 
 
-\input{julia}{/_assets/scripts/script1.jl} 
-
-
-these scripts can be run in such a way that their output is also saved to file, see `scripts/generate_results.jl` for instance, and you can then also input the results:
-
-\output{/_assets/scripts/script1.jl} 
-
-which is convenient if you're presenting code.
-
-**Note**: paths specification matters, see [the docs](https://tlienart.github.io/franklindocs/code/index.html#more_on_paths) for details.
-
-Using this approach with the `generate_results.jl` file also makes sure that all the code on your website works and that all results match the code which makes maintenance easier.
--->

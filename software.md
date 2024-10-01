@@ -1,82 +1,42 @@
 @def title = "Software"
-@def tags = ["software"]
 
 # Software
 
-I have experience with C++ and Python although my main programming language currently is Julia. Julia is a recent language that has performance comparable to optimized C code, but with friendly syntax and a abstract type system that makes it easy to construct generic code. 
+I am an avid proponent of open source software and have started numerous projects used by telescopes such as the Event Horizon Telescope.
+I am also one of the leaders of the [EHTJulia organization](https://github.com/EHTJulia), which is a collection of Julia packages for 
+analyzing any VLBI data, but is currently focused on the Event Horizon Telescope and potential future upgrades including the ngEHT and BHEX projects.
+Below I highlight some of the core software projects I have worked on.
 
-\toc
+For a complete list of projects please see my [GitHub page](https://github.com/ptiede?tab=overview&from=2024-08-01&to=2024-08-31).
+
+
+## Comrade
+
+[Comrade](https://github.com/ptiede/Comrade.jl) is a VLBI imaging and calibration package written in Julia. It is designed to be a modern, flexible, and fast package for analyzing VLBI data.
+Comrade is highly performant and is 1-2 orders of magnitude faster than other packages commonly used by the EHT, including Themis and eht-imaging.
+Thanks to interfacing with the Enzyme automatic differentiation library, Comrade is able entirely autodifferentiable and doesn't require specialized 
+DSL's like JAX or Stan to be used. 
+
+Comrade is entirely open source and its [documentation](https://ptiede.github.io/Comrade.jl/v0.10.4/) includes various tutorials and examples.
+
+From a VLBI standpoint Comrade also attempts to not only solve for the radio image and but the instrument response. Namely, it will perform joint calibration and imaging step.
+The calibration is also unique since it can handle a variety of instrumental effects including gains, gain ratios, leakage, and even non-circular polarization bases.
 
 ## Themis
-Themis is the Bayesian inference package written in C++ that is used for analyzing data from the Event Horizon Telescope. I am one of the core developers of Themis having written numerous models and most of the samplers.
 
-Themis has been used for many of the biggest EHT results. Many of the quantitative results from the first EHT results on M 87 where due to Themis. One example is the Mass of M 87. 
+Themis is Bayesian inference PPL for analyzing VLBI data. It is written in C++ and is currently widely used in the EHT.
+I was responsible for implementing various features in Themis including:
 
+- Writing the entire sampling backend and interfacing with the Stan library. This included interfacing Stan into the modern non-reversible parallel tempering algorithm detailed in [Syed et al. 2021](https://arxiv.org/abs/1905.02939). This sampler was used to produce the first polarized images of M87 and Sgr A*. The extension also allows for MPI parallelism and has been used on thousands of cores on Compute Canada's supercomputers, Harvards FASRC, and many others.
+- Implementing various geometric models and frequency dependent models for the EHT.
+- Maintenance of the code and various bug fixes
 
 ## VIDA
 
-VIDA is a tool for feature extraction from image reconstruction of EHT data. This is needed because the current imaging techniques are extremely flexible. While this flexibility is a great feature to have it means that extracting important features (e.g. the diameter of the ring) is difficult. To help automate feature extraction I developed a tools called *Variational Image Domain Analysis* or VIDA. VIDA works by approximating the image with parameterized models or **filters** ,$f_\theta$, such as Gaussians, ring, disks, etc. and then finds the optimal parameters. For optimality we take inspiration from variational inference and use probability divergences as our objective function. 
+VIDA is a Julia package that aims to extract features from images using template matching. It has become a part of the standard imaging evaluation pipeline for the EHT and have been used
+in the [M87 2018](https://www.aanda.org/articles/aa/full_html/2024/01/aa47932-23/aa47932-23.html) publication, [Sgr A*](https://iopscience.iop.org/journal/2041-8205/page/Focus_on_First_Sgr_A_Results), 
+and many on-going EHT projects.
 
-Currently VIDA has two divergences implemented:
- - [Bhattacharyya divergence](https://en.wikipedia.org/wiki/Bhattacharyya_distance)
- $$
-    Bh(p||q) = -\log \int \sqrt{p(x)q(x)}dx
- $$
- - [Kullback Leibler](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) divergence
- $$
-    KL(p||q) = \int p(x)\log\left(\frac{p(x)}{q(x)}\right).
- $$
- In my experiments I have found that the Bhattacharyya divergence is easier to optimize than the KL divergence.
 
-More to come...
-
- ### Example script
-
-```julia:./vidaex.jl
-using VIDA
-using Plots
-# Lets create a filter or approximate image
-θ = GaussianRing(r0 = 20.0, 
-                 σ = 5.0,
-                 x0= 5.0,
-                 y0 = 6.0)
-
-# We can easily plot this using the Plots.jl package
-plot(θ, title="Example filter")
-savefig(joinpath("/home/ptiede/MySite/ptiede.github.io/MySite2/__site/assets/software/code", "img.svg")) # hide
-
-# Let's now make a sample image with some random noise
-img = VIDA.make_ehtimage(θ, 64, [-60.0,60.0],[-60.0,60.0])
-img.img .*=  exp.(randn(64,64)*0.2)
-
-# Plotting the image gives
-plot(img, title="Example filter with noise")
-savefig(joinpath("/home/ptiede/MySite/ptiede.github.io/MySite2/__site/assets/software/code", "img2.svg")) # hide
-
-# Now let's try to extract the ring parameters
-# First constuct the divergence from the img
-bh = Bhattacharyya(img)
-
-# Construct the search bounds
-θlower = GaussianRing(r0=0.1,
-                      σ = 0.01,
-                      x0=-60.0,
-                      y0=-60.0)
-θupper = GaussianRing(r0=40,
-                      σ = 20,
-                      x0=60.0,
-                      y0=60.0)
-
-# Now find the optimal filter and plot it
-θopt,_ = bbextract(bh, θ, θlower, θupper)
-a = triptic(img, θopt)
-title!(a[1], "Image")
-title!(a[2], "Optimal Filter")
-title!(a[3], "Chords")
-savefig(joinpath("/home/ptiede/MySite/ptiede.github.io/MySite2/__site/assets/software/code", "triptic.svg")) # hide
-```
-\fig{img}
-\fig{img2}
-\fig{triptic}
 
 
