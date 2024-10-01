@@ -1,4 +1,5 @@
 @def title = "Software"
+@def tags = ["software"]
 
 # Software
 
