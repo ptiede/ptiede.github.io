@@ -3,8 +3,7 @@
 
 # Software
 
-!!! tip
-    For a complete list of projects please see my [GitHub page](https://github.com/ptiede?tab=overview&from=2024-08-01&to=2024-08-31).
+**For a complete list of projects please see my [GitHub page](https://github.com/ptiede?tab=overview&from=2024-08-01&to=2024-08-31)**
 
 I am an avid proponent of open source software and have started numerous projects used by telescopes such as the Event Horizon Telescope.
 I am also one of the leaders of the [EHTJulia organization](https://github.com/EHTJulia). 
